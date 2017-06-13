@@ -33,7 +33,7 @@ namespace FunctionsDotVisualizer
                 outputLines.AddRange(output);
             }
 
-            using (var file = new StreamWriter(@"output.dot")) {
+            using (var file = new StreamWriter(args[1])) {
                 file.WriteLine(Preamble);
 
                 foreach (string line in outputLines) {
@@ -53,28 +53,78 @@ namespace FunctionsDotVisualizer
 
             var metadata = ParseFunctionJson(functionName, filename);
 
-            functionName = $"\"{functionName}\""; // surround with quotes
-            outputLines.Add($"{functionName} {FunctionNodeStyle}");
+            outputLines.Add($"\"{functionName}\" {FunctionNodeStyle}");
 
             foreach (var binding in metadata.Bindings) {
 
-                var nodeText = $"\"{binding.Type} - {binding.Name}\"";
+                var (nodeLabel, nodeIdentifier) = GenerateBindingIdentifier(functionName, binding);
+                nodeIdentifier = '"' + nodeIdentifier + '"'; // surround with quotes
+                nodeLabel = $"[label = \"{nodeLabel}\"]";
 
                 if (binding.IsTrigger) {
-                    outputLines.Add($"{nodeText} {TriggerNodeStyle}");
-                    outputLines.Add($"{nodeText} -> {functionName} {TriggerArrow}");
+                    outputLines.Add($"{nodeIdentifier} {nodeLabel} {TriggerNodeStyle}");
+                    outputLines.Add($"{nodeIdentifier} -> \"{functionName}\" {TriggerArrow}");
                 }
                 else if (binding.Direction == BindingDirection.Out) {
-                    outputLines.Add($"{nodeText} {OutputNodeStyle}");
-                    outputLines.Add($"{functionName} -> {nodeText} {OutputArrow}");
+                    outputLines.Add($"{nodeIdentifier} {nodeLabel} {OutputNodeStyle}");
+                    outputLines.Add($"\"{functionName}\" -> {nodeIdentifier} {OutputArrow}");
                 }
                 else {
-                    outputLines.Add($"{nodeText} {InputNodeStyle}");
-                    outputLines.Add($"{nodeText} -> {functionName} {InputArrow}");
+                    outputLines.Add($"{nodeIdentifier} {nodeLabel} {InputNodeStyle}");
+                    outputLines.Add($"{nodeIdentifier} -> \"{functionName}\" {InputArrow}");
                 }
             }
 
             return outputLines;
+        }
+
+        private static (string, string) GenerateBindingIdentifier(string functionName, BindingMetadata binding)
+        {
+            // common parameters
+            var queueName = binding.Raw["queueName"];
+            var connection = binding.Raw["connection"] ?? "AzureWebJobsStorage";
+            var path = binding.Raw["path"];
+            var topicName = binding.Raw["topicName"];
+            var subscriptionName = binding.Raw["subscriptionName"];
+
+            var defaultId = $"{binding.Type} - {functionName}";
+
+            switch (binding.Type) {
+                case "queueTrigger":
+                case "queue":
+                    return ("Queue", $"Queue - {queueName} - {connection}");
+
+                case "httpTrigger":
+                case "http":
+                    return ("HTTP", defaultId);
+                case "blobTrigger":
+                case "blob":
+                    return ("Blob", $"Blob - {path} - {connection}");
+
+                case "serviceBusTrigger":
+                case "serviceBus":
+                    return ("Service Bus", $"ServiceBus - {queueName} - {topicName} - {subscriptionName} - {connection}");
+
+                case "timerTrigger":
+                    var schedule = binding.Raw["schedule"];
+                    return ($"Timer\n{schedule}", defaultId);
+
+                case "eventHubTrigger":
+                case "eventHub":
+                    var consumerGroup = binding.Raw["consumerGroup"];
+                    return ("Event Hub", $"EventHub - {path} - {consumerGroup} - {connection}");
+                case "documentDB":
+                    var collectionName = binding.Raw["collectionName"];
+                    var databaseName = binding.Raw["databaseName"];
+                    return ("DocumentDB", $"DocumentDB - {databaseName} - {collectionName} - {connection}");
+                case "manualTrigger":
+                    return ("Manual", defaultId);
+                case "table":
+                    var tableName = binding.Raw["tableName"];
+                    return ("Table", $"Table - {tableName} - {connection}");
+                default:
+                    return (binding.Type, defaultId);
+            }
         }
 
         private static FunctionMetadata ParseFunctionJson(string functionName, string filename)
