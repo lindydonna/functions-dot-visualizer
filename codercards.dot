@@ -1,0 +1,19 @@
+digraph G {
+    graph [fontname = "Segoe UI"];
+    node [fontname = "Segoe UI", shape=box]; 
+    edge [fontname = "Segoe UI", fontsize=10];
+
+    RequestImageProcessing [style="filled", shape=note, fillcolor="beige"];
+    "Blob input-container" [style=filled, fillcolor="/bugn3/2"];
+    GenerateCard [style="filled", shape=note, fillcolor="beige"]
+    "Blob outputblob" [shape=box, style=filled, fillcolor="/bugn3/3"];
+    "HTTP" [style=filled, fillcolor="/bugn3/1"];
+    "Queue input-queue" [style=filled, fillcolor="/bugn3/3:/bugn3/1"]
+
+    "Queue input-queue" -> GenerateCard [arrowhead = vee, label="   Trigger", "labeljust"="r"]
+    "HTTP" -> RequestImageProcessing [arrowhead = vee, label="   Trigger"];
+    "Blob input-container" -> GenerateCard [arrowhead = dot, label = "   Input"];    
+    RequestImageProcessing -> "Queue input-queue" [arrowhead = box, label = "   Output"];
+    GenerateCard -> "Blob outputblob" [arrowhead = box,  label = "   Output"];
+
+}
