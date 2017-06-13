@@ -44,6 +44,9 @@ namespace FunctionsDotVisualizer
             }
         }
 
+        // TODO: make the code work across all functions globally. Need to compare input and output config to make sure that
+        // they are actually the same node. For instance, check that queue output and input are the same queue
+
         private static List<string> ProcessFunction(string functionName, string filename)
         {
             var outputLines = new List<string>();
