@@ -40,7 +40,6 @@ namespace VisualizerWebApp.Controllers
             }
 
             string fileContent = ZipDirToRenderedFile(filePath);
-            ViewData["ImageContent"] = fileContent;
 
             return View("ViewImage");
         }
@@ -54,6 +53,10 @@ namespace VisualizerWebApp.Controllers
             string outputFile = CreateOutputFile(dotFile, "svg");
 
             string fileContent = System.IO.File.ReadAllText(outputFile);
+
+            ViewData["ImageContent"] = fileContent;
+            ViewData["DotFile"] = dotFile;
+
             return fileContent;
         }
 
@@ -71,9 +74,15 @@ namespace VisualizerWebApp.Controllers
             }
 
             string fileContent = ZipDirToRenderedFile(zipfile);
-            ViewData["ImageContent"] = fileContent;
 
             return View("ViewImage");
+        }
+
+        public IActionResult DownloadDotFile()
+        {
+            var dotFile = new FileInfo(ViewData["DotFile"].ToString());
+
+            return File(dotFile.FullName, "application/octet-stream");
         }
 
         private string CreateOutputFile(string filename, string format)
