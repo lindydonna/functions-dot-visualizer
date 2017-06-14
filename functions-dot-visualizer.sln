@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26507.0
+VisualStudioVersion = 15.0.26430.13
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "functions-dot-visualizer", "functions-dot-visualizer\functions-dot-visualizer.csproj", "{823294BE-973A-46EE-B685-5255B7E270FA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "functions-dot-visualizer\ConsoleApp.csproj", "{823294BE-973A-46EE-B685-5255B7E270FA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VisualizerWebApp", "VisualizerWebApp\VisualizerWebApp.csproj", "{957204BA-6149-40D8-81CE-2ECFB69CD9DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotVisualizerLib", "DotVisualizerLib\DotVisualizerLib.csproj", "{D165FE66-8CB7-4C7E-9AA4-24F05CCDA902}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{823294BE-973A-46EE-B685-5255B7E270FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{823294BE-973A-46EE-B685-5255B7E270FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{823294BE-973A-46EE-B685-5255B7E270FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{957204BA-6149-40D8-81CE-2ECFB69CD9DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{957204BA-6149-40D8-81CE-2ECFB69CD9DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{957204BA-6149-40D8-81CE-2ECFB69CD9DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{957204BA-6149-40D8-81CE-2ECFB69CD9DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D165FE66-8CB7-4C7E-9AA4-24F05CCDA902}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D165FE66-8CB7-4C7E-9AA4-24F05CCDA902}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D165FE66-8CB7-4C7E-9AA4-24F05CCDA902}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D165FE66-8CB7-4C7E-9AA4-24F05CCDA902}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
