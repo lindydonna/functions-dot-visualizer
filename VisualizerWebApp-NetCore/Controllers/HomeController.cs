@@ -27,13 +27,15 @@ namespace VisualizerWebApp.Controllers
         }
 
         [HttpPost("UploadFiles")]
-        public async Task<IActionResult> UploadFile(IFormFile formFile)
+        public async Task<IActionResult> UploadFile(List<IFormFile> files)
         {
             var filePath = Path.GetTempFileName();
 
-            if (formFile.Length > 0) {
-                using (var stream = new FileStream(filePath, FileMode.Create)) {
-                    await formFile.CopyToAsync(stream);
+            foreach (var formFile in files) {
+                if (formFile.Length > 0) {
+                    using (var stream = new FileStream(filePath, FileMode.Create)) {
+                        await formFile.CopyToAsync(stream);
+                    }
                 }
             }
 
@@ -77,7 +79,7 @@ namespace VisualizerWebApp.Controllers
         private string CreateOutputFile(string filename, string format)
         {
             string outputFile = Path.Combine(Path.GetTempPath(), $"{filename}.{format}");
-            var process = Process.Start(@"graphviz-2.38\bin\dot.exe", $"-T{format} {filename} -o {outputFile}");
+            var process = Process.Start("dot", $"-T{format} {filename} -o {outputFile}");
             process.WaitForExit();
             return outputFile;
         }
