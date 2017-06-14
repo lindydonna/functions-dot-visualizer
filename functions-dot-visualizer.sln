@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26507.0
+VisualStudioVersion = 15.0.26430.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VisualizerLib-NetStandard", "VisualizerLib-NetStandard\VisualizerLib-NetStandard.csproj", "{4CD2F5DB-88F8-4412-97BA-F4F41A6E717D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VisualizerWebApp-NetCore", "VisualizerWebApp-NetCore\VisualizerWebApp-NetCore.csproj", "{B2560D5E-FDED-4163-9664-4CAD85CF051F}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{1CD32022-1D9E-489F-B63E-C6DF4E8DC527}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{B2560D5E-FDED-4163-9664-4CAD85CF051F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2560D5E-FDED-4163-9664-4CAD85CF051F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2560D5E-FDED-4163-9664-4CAD85CF051F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CD32022-1D9E-489F-B63E-C6DF4E8DC527}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CD32022-1D9E-489F-B63E-C6DF4E8DC527}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CD32022-1D9E-489F-B63E-C6DF4E8DC527}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CD32022-1D9E-489F-B63E-C6DF4E8DC527}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
