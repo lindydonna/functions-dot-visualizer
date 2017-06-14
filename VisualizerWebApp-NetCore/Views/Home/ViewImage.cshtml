@@ -8,4 +8,4 @@
 
 @Html.Raw(ViewData["ImageContent"])
 
-<a asp-area="" asp-controller="Home" asp-action="DownloadDotFile">Download DOT file</a>
+@Html.ActionLink("Download DOT File", "DownloadDotFile", new { file = ViewData["DotFile"] })
