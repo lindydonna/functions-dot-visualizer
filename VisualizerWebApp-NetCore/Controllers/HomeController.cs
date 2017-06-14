@@ -41,16 +41,14 @@ namespace VisualizerWebApp.Controllers
                 string fileContent = ZipDirToRenderedFile(filePath);
             }
             catch (Exception e) {
-                return await ShowError($"Error processing zipfile: {e.Message}");
+                return ShowError($"Error processing zipfile: {e.Message}");
             }
 
             return View("ViewImage");
         }
 
-        private async Task<IActionResult> ShowError(string message)
+        private IActionResult ShowError(string message)
         {
-            //await Response.WriteAsync($"<script language=\"JavaScript\">alert('{message}')</script>");
-            //return new EmptyResult();
             ViewData["Errors"] = message;
             return View("Index");
         }
@@ -97,7 +95,7 @@ namespace VisualizerWebApp.Controllers
                 string fileContent = ZipDirToRenderedFile(zipfile);
             }
             catch (Exception e) {
-                return await ShowError($"Error processing repo: {e.Message}");
+                return ShowError($"Error processing repo: {e.Message}");
             }
 
             return View("ViewImage");
