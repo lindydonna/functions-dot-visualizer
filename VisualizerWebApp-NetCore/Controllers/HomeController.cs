@@ -31,10 +31,6 @@ namespace VisualizerWebApp.Controllers
         {
             var filePath = Path.GetTempFileName();
 
-            if (Path.GetExtension(formFile.FileName) != "zip") {
-                return await ShowError("A .zip file is required");
-            }
-
             try {
                 if (formFile.Length > 0) {
                     using (var stream = new FileStream(filePath, FileMode.Create)) {
@@ -53,8 +49,10 @@ namespace VisualizerWebApp.Controllers
 
         private async Task<IActionResult> ShowError(string message)
         {
-            await Response.WriteAsync($"<script language=\"JavaScript\">alert('{message}')</script>");
-            return new EmptyResult();
+            //await Response.WriteAsync($"<script language=\"JavaScript\">alert('{message}')</script>");
+            //return new EmptyResult();
+            ViewData["Errors"] = message;
+            return View("Index");
         }
 
         private string ZipDirToRenderedFile(string filePath)
@@ -80,7 +78,9 @@ namespace VisualizerWebApp.Controllers
                 var uri = new Uri(repoUrl);
             }
             catch (UriFormatException) {
-                return await ShowError("Invalid URL");
+                ViewData["RepoUrlError"] = "has-error";
+                ViewData["RepoUrlErrorLabel"] = " - Invalid URL";
+                return View("Index");
             }
 
             try {

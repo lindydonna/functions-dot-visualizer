@@ -12,6 +12,19 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
 
+.navbar-inverse {
+    background-color: slategray;
+    border-color: darkslategray;
+}
+
+.navbar-inverse .navbar-brand {
+    color: white;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: white;
+}
+
 /* Set widths on the form inputs since otherwise they're 100% wide */
 input,
 select,
