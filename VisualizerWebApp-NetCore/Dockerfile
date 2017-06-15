@@ -1,9 +1,18 @@
 FROM microsoft/aspnetcore:1.1
+
 ARG source
 WORKDIR /app
-EXPOSE 80
 COPY ${source:-obj/Docker/publish} .
 
-RUN apt-get update && apt-get install -y graphviz 
+EXPOSE 2222 80
 
-ENTRYPOINT ["dotnet", "VisualizerWebApp-NetCore.dll"]
+RUN apt-get update && apt-get install -y graphviz \
+	&& apt-get install -y openssh-server dos2unix --no-install-recommends \
+    && echo "root:Docker!" | chpasswd 
+
+COPY init_container.sh /bin/
+COPY sshd_config /etc/ssh/
+
+RUN dos2unix /etc/ssh/sshd_config && dos2unix /bin/init_container.sh 
+CMD ["/bin/init_container.sh"]
+
