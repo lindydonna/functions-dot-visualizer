@@ -63,6 +63,7 @@ namespace VisualizerWebApp.Controllers
 
             string fileContent = System.IO.File.ReadAllText(outputFile);
 
+            ViewData["SvgFile"] = outputFile;
             ViewData["ImageContent"] = fileContent;
             ViewData["DotFile"] = dotFile;
 
@@ -104,7 +105,13 @@ namespace VisualizerWebApp.Controllers
         public IActionResult DownloadDotFile(string file)
         {
             var bytes = System.IO.File.ReadAllBytes(file);
-            return File(bytes, "application/octet-stream", "output.dot");
+            return File(bytes, "application/octet-stream", "function-bindings.dot");
+        }
+
+        public IActionResult DownloadSvg(string file)
+        {
+            var bytes = System.IO.File.ReadAllBytes(file);
+            return File(bytes, "image/svg+xml", "function-bindings.svg");
         }
 
         private string CreateOutputFile(string filename, string format)

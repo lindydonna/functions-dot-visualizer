@@ -6,6 +6,8 @@
 
 <h2>Rendered bindings</h2>
 
-@Html.Raw(ViewData["ImageContent"])
-
 @Html.ActionLink("Download DOT File", "DownloadDotFile", new { file = ViewData["DotFile"] })
+
+<br /><br />
+
+<a href="@Url.Action("DownloadSvg", new { file = ViewData["SvgFile"] })">@Html.Raw(ViewData["ImageContent"])</a>
