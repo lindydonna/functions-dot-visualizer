@@ -1,0 +1,22 @@
+digraph Functions {
+   graph [fontname = "Segoe UI"];
+   node[fontname = "Segoe UI", shape = box, style = filled];
+   edge[fontname = "Segoe UI", fontsize = 10];
+   "GenerateCard" [shape=note, fillcolor="/blues4/1"]
+   "Queue - %input-queue% - AzureWebJobsStorage" [label = "Queue"] [fillcolor="/blues4/2"]
+   "Queue - %input-queue% - AzureWebJobsStorage" -> "GenerateCard" [arrowhead = vee, label="   Trigger"]
+   "Blob - %input-container%/{BlobName} - AzureWebJobsStorage" [label = "Blob"] [fillcolor="/blues4/3"]
+   "Blob - %input-container%/{BlobName} - AzureWebJobsStorage" -> "GenerateCard" [arrowhead = dot, label="   Input"]
+   "Blob - %output-container%/{BlobName} - AzureWebJobsStorage" [label = "Blob"] [fontcolor=white, fillcolor="/blues4/4"]
+   "GenerateCard" -> "Blob - %output-container%/{BlobName} - AzureWebJobsStorage" [arrowhead = box, label="   Output"]
+   "RequestImageProcessing" [shape=note, fillcolor="/blues4/1"]
+   httpTrigger:"RequestImageProcessing" -> "RequestImageProcessing" [arrowhead = vee, label="   Trigger"]
+   "Queue - %input-queue% - AzureWebJobsStorage" [label = "Queue"] [fontcolor=white, fillcolor="/blues4/4"]
+   "RequestImageProcessing" -> "Queue - %input-queue% - AzureWebJobsStorage" [arrowhead = box, label="   Output"]
+   "Settings" [shape=note, fillcolor="/blues4/1"]
+   httpTrigger:"Settings" -> "Settings" [arrowhead = vee, label="   Trigger"]
+httpTrigger [shape=none, fillcolor=white, label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="5"><tr><td colspan="2">HTTP Triggers</td></tr><tr>
+   [label = "<td bgcolor="/blues4/2" port="RequestImageProcessing"><font point-size="10"><b>/api/foo</b></font></td>"]
+   [label = "<td bgcolor="/blues4/2" port="Settings"><font point-size="10"><b>/api/Settings</b></font></td>"]
+</tr></table >>];
+}

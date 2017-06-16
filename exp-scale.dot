@@ -1,0 +1,32 @@
+digraph Functions {
+   graph [fontname = "Segoe UI"];
+   node[fontname = "Segoe UI", shape = box, style = filled];
+   edge[fontname = "Segoe UI", fontsize = 10];
+
+    httpTrigger [shape=none, fillcolor=white, label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="5">
+    <TR><TD COLSPAN="2">HTTP Triggers</TD></TR>
+    <TR>
+        <TD BGCOLOR="/blues4/2" PORT="cs-exponential-start-test"><font POINT-SIZE="10"><b>/api/cs-exponential-start-test</b></font></TD>
+        <TD BGCOLOR="/blues4/2" PORT="cs-exponential-results"><font POINT-SIZE="10"><b>/api/cs-exponential-results</b></font></TD>
+    </TR>
+    </TABLE>>];
+
+
+   httpTrigger:"cs-exponential-start-test" -> "cs-exponential-start-test" [arrowhead = vee, label="   Trigger"]
+   "cs-exponential-start-test" [shape=note, fillcolor="/blues4/1"]
+
+   "Queue - exponentialsample - AzureWebJobsStorage" [label = "Queue"] [fontcolor=white, fillcolor="/blues4/4"]
+   "cs-exponential-start-test" -> "Queue - exponentialsample - AzureWebJobsStorage" [arrowhead = box, label="   Output"]
+   "cs-exponential-results" [shape=note, fillcolor="/blues4/1"]
+   httpTrigger:"cs-exponential-results" -> "cs-exponential-results" [arrowhead = vee, label="   Trigger"]
+   "Table - exponentialtelemetry - AzureWebJobsStorage" [label = "Table"] [fillcolor="/blues4/3"]
+   "Table - exponentialtelemetry - AzureWebJobsStorage" -> "cs-exponential-results" [arrowhead = dot, label="   Input"]
+   "cs-exponential-scale" [shape=note, fillcolor="/blues4/1"]
+   "Queue - exponentialsample - AzureWebJobsStorage" [label = "Queue"] [fillcolor="/blues4/2"]
+   "Queue - exponentialsample - AzureWebJobsStorage" -> "cs-exponential-scale" [arrowhead = vee, label="   Trigger"]
+   "Queue - exponentialsample - AzureWebJobsStorage" [label = "Queue"] [fontcolor=white, fillcolor="/blues4/4"]
+   "cs-exponential-scale" -> "Queue - exponentialsample - AzureWebJobsStorage" [arrowhead = box, label="   Output"]
+   "Table - exponentialtelemetry - AzureWebJobsStorage" [label = "Table"] [fontcolor=white, fillcolor="/blues4/4"]
+   "cs-exponential-scale" -> "Table - exponentialtelemetry - AzureWebJobsStorage" [arrowhead = box, label="   Output"]
+}
