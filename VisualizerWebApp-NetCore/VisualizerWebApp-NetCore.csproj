@@ -10,58 +10,7 @@
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Content Include="wwwroot\azure-functions-logo-color.svg" />
-    <Content Include="wwwroot\css\site.css" />
-    <Content Include="wwwroot\css\site.min.css" />
-    <Content Include="wwwroot\favicon.ico" />
-    <Content Include="wwwroot\js\site.js" />
-    <Content Include="wwwroot\js\site.min.js" />
-    <Content Include="wwwroot\lib\bootstrap\.bower.json" />
-    <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap-theme.css" />
-    <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap-theme.css.map" />
-    <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap-theme.min.css" />
-    <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap-theme.min.css.map" />
-    <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap.css.map" />
-    <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css" />
-    <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map" />
-    <Content Include="wwwroot\lib\bootstrap\dist\fonts\glyphicons-halflings-regular.eot">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="wwwroot\lib\bootstrap\dist\fonts\glyphicons-halflings-regular.svg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="wwwroot\lib\bootstrap\dist\fonts\glyphicons-halflings-regular.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="wwwroot\lib\bootstrap\dist\fonts\glyphicons-halflings-regular.woff">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="wwwroot\lib\bootstrap\dist\fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="wwwroot\lib\bootstrap\dist\js\bootstrap.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
-    <Content Include="wwwroot\lib\bootstrap\dist\js\npm.js" />
-    <Content Include="wwwroot\lib\bootstrap\LICENSE" />
-    <Content Include="wwwroot\lib\jquery-validation-unobtrusive\.bower.json" />
-    <Content Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
-    <Content Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
-    <Content Include="wwwroot\lib\jquery-validation\.bower.json" />
-    <Content Include="wwwroot\lib\jquery-validation\dist\additional-methods.js" />
-    <Content Include="wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
-    <Content Include="wwwroot\lib\jquery-validation\dist\jquery.validate.js" />
-    <Content Include="wwwroot\lib\jquery-validation\dist\jquery.validate.min.js" />
-    <Content Include="wwwroot\lib\jquery-validation\LICENSE.md" />
-    <Content Include="wwwroot\lib\jquery\.bower.json" />
-    <Content Include="wwwroot\lib\jquery\dist\jquery.js" />
-    <Content Include="wwwroot\lib\jquery\dist\jquery.min.js" />
-    <Content Include="wwwroot\lib\jquery\dist\jquery.min.map" />
-    <Content Include="wwwroot\lib\jquery\LICENSE.txt" />
-  </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="BuildBundlerMinifier" Version="2.4.337" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
@@ -81,27 +30,6 @@
   <ItemGroup>
     <Content Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot/azure functions logo-color.svg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot/css\site.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot/js\site.js">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot/lib\bootstrap\dist\css\bootstrap-theme.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot/lib\bootstrap\dist\fonts\glyphicons-halflings-regular.woff2">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot/lib\bootstrap\dist\js\npm.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\css\site.css">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
