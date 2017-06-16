@@ -11,26 +11,30 @@ namespace DotVisualizerLib
 {
     public class Visualizer
     {
-        public const string FunctionNodeStyle = "[shape=note, fillcolor=\"beige\"]";
-        public const string TriggerNodeStyle = "[fillcolor=\"/bugn3/1\"]";
-        public const string InputNodeStyle = "[fillcolor=\"/bugn3/2\"]";
-        public const string OutputNodeStyle = "[fillcolor=\"/bugn3/3\"]";
+        public const string FunctionNodeStyle = "[shape=note, fillcolor=\"/blues4/1\"]";
+        public const string TriggerNodeStyle = "[fillcolor=\"/blues4/2\"]";
+        public const string InputNodeStyle = "[fillcolor=\"/blues4/3\"]";
+        public const string OutputNodeStyle = "[fontcolor=white, fillcolor=\"/blues4/4\"]";
         public const string TriggerArrow = "[arrowhead = vee, label=\"   Trigger\"]";
         public const string InputArrow = "[arrowhead = dot, label=\"   Input\"]";
         public const string OutputArrow = "[arrowhead = box, label=\"   Output\"]";
+        public const string HttpTriggerPreamble = "httpTrigger [shape=none, fillcolor=white, label=<<table border=\"0\" cellborder=\"1\" cellspacing=\"0\" cellpadding=\"5\"><tr><td colspan=\"{0}\">HTTP Triggers</td></tr><tr>";
+        public const string HttpTriggerPost = "</tr></table >>];";
 
         public const string Preamble = "digraph Functions {\n   graph [fontname = \"Segoe UI\"];\n   node[fontname = \"Segoe UI\", shape = box, style = filled];\n   edge[fontname = \"Segoe UI\", fontsize = 10];";
 
         public static void DotFileFromFunctionDirectory(string directory, string outputFilename)
         {
             var outputLines = new List<string>();
+            var httpOutput = new List<string>();
 
             var files = Directory.GetFiles(directory, "function.json", SearchOption.AllDirectories);
 
             foreach (var f in files) {
                 var functionName = new DirectoryInfo(f).Parent.Name;
-                var output = ProcessFunction(functionName, f);
-                outputLines.AddRange(output);
+                var (mainOutput, httpCells) = ProcessFunction(functionName, f);
+                outputLines.AddRange(mainOutput);
+                httpOutput.AddRange(httpCells);
             }
 
             using (var file = new StreamWriter(File.Create(outputFilename))) {
@@ -40,13 +44,24 @@ namespace DotVisualizerLib
                     file.WriteLine($"   {line}");
                 }
 
+                if (httpOutput.Count > 0) {
+                    file.WriteLine(String.Format(HttpTriggerPreamble, httpOutput.Count));
+
+                    foreach (string cell in httpOutput) {
+                        file.WriteLine($"   {cell}");
+                    }
+                    file.WriteLine(HttpTriggerPost);
+                }
+
                 file.WriteLine("}");
             }
         }
 
-        public static List<string> ProcessFunction(string functionName, string filename)
+        // returns a list of lines for triggers other than http, and a separate list of http table cells
+        public static (List<string>, List<string>) ProcessFunction(string functionName, string filename)
         {
             var outputLines = new List<string>();
+            var httpTriggerCells = new List<string>();
 
             var metadata = ParseFunctionJson(functionName, filename);
 
@@ -55,24 +70,37 @@ namespace DotVisualizerLib
             foreach (var binding in metadata.Bindings) {
 
                 var (nodeLabel, nodeIdentifier) = GenerateBindingIdentifier(functionName, binding);
-                nodeIdentifier = '"' + nodeIdentifier + '"'; // surround with quotes
-                nodeLabel = $"[label = \"{nodeLabel}\"]";
+                bool isHttp = binding.Type == "httpTrigger";
 
-                if (binding.IsTrigger) {
-                    outputLines.Add($"{nodeIdentifier} {nodeLabel} {TriggerNodeStyle}");
-                    outputLines.Add($"{nodeIdentifier} -> \"{functionName}\" {TriggerArrow}");
-                }
-                else if (binding.Direction == BindingDirection.Out) {
-                    outputLines.Add($"{nodeIdentifier} {nodeLabel} {OutputNodeStyle}");
-                    outputLines.Add($"\"{functionName}\" -> {nodeIdentifier} {OutputArrow}");
-                }
-                else {
-                    outputLines.Add($"{nodeIdentifier} {nodeLabel} {InputNodeStyle}");
-                    outputLines.Add($"{nodeIdentifier} -> \"{functionName}\" {InputArrow}");
+                if (nodeLabel != null && nodeIdentifier != null) {
+
+                    if (!isHttp) {
+                        nodeIdentifier = '"' + nodeIdentifier + '"'; // surround with quotes
+                    }
+
+                    nodeLabel = $"[label = \"{nodeLabel}\"]";
+
+                    if (binding.IsTrigger) {
+                        if (isHttp) {
+                            httpTriggerCells.Add(nodeLabel);
+                        }
+                        else {
+                            outputLines.Add($"{nodeIdentifier} {nodeLabel} {TriggerNodeStyle}");
+                        }
+                        outputLines.Add($"{nodeIdentifier} -> \"{functionName}\" {TriggerArrow}");
+                    }
+                    else if (binding.Direction == BindingDirection.Out) {
+                        outputLines.Add($"{nodeIdentifier} {nodeLabel} {OutputNodeStyle}");
+                        outputLines.Add($"\"{functionName}\" -> {nodeIdentifier} {OutputArrow}");
+                    }
+                    else {
+                        outputLines.Add($"{nodeIdentifier} {nodeLabel} {InputNodeStyle}");
+                        outputLines.Add($"{nodeIdentifier} -> \"{functionName}\" {InputArrow}");
+                    }
                 }
             }
 
-            return outputLines;
+            return (outputLines, httpTriggerCells);
         }
 
         public static (string, string) GenerateBindingIdentifier(string functionName, BindingMetadata binding)
@@ -92,8 +120,11 @@ namespace DotVisualizerLib
                     return ("Queue", $"Queue - {queueName} - {connection}");
 
                 case "httpTrigger":
-                case "http":
-                    return ("HTTP", defaultId);
+                    var httpRoute = binding.Raw["route"] ?? $"/api/{functionName}";
+                    var httpCell = $"<td bgcolor=\"/blues4/2\" port=\"{functionName}\"><font point-size=\"10\"><b>{httpRoute}</b></font></td>";
+                    return (httpCell, $"httpTrigger:\"{functionName}\"");
+                case "http": // elide http output bindings
+                    return (null, null);
                 case "blobTrigger":
                 case "blob":
                     return ("Blob", $"Blob - {path} - {connection}");
