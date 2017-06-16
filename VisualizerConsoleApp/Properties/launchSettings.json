@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "VisualizerConsoleApp": {
+      "commandName": "Project",
+      "commandLineArgs": "D:\\git-repos\\CoderCardsV2\\CoderCards\\bin\\Debug\\net461 codercards.dot"
+    }
+  }
+}

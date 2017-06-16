@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VisualizerWebApp-NetCore", 
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{1CD32022-1D9E-489F-B63E-C6DF4E8DC527}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VisualizerConsoleApp", "VisualizerConsoleApp\VisualizerConsoleApp.csproj", "{24BBFF54-08FC-4E99-B8C4-6AAE1BD3761C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{1CD32022-1D9E-489F-B63E-C6DF4E8DC527}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CD32022-1D9E-489F-B63E-C6DF4E8DC527}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1CD32022-1D9E-489F-B63E-C6DF4E8DC527}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24BBFF54-08FC-4E99-B8C4-6AAE1BD3761C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24BBFF54-08FC-4E99-B8C4-6AAE1BD3761C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24BBFF54-08FC-4E99-B8C4-6AAE1BD3761C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24BBFF54-08FC-4E99-B8C4-6AAE1BD3761C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
