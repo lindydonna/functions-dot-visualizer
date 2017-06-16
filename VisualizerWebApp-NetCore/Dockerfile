@@ -1,7 +1,7 @@
 FROM microsoft/aspnetcore:1.1
 ARG source
 WORKDIR /app
-RUN mkdir /app/obj && mkdir /app/obj/Docker && mkdir /app/obj/Docker/publish
+RUN echo ${source}
 COPY ${source:-obj/Docker/publish} .
 EXPOSE 80
 
