@@ -2,7 +2,7 @@ version: '2'
 
 services:
   functions-visualizer:
-    image: functions-visualizer:dev
+    image: lindydonna/functions-visualizer:dev
     build:
       args:
         source: ${DOCKER_BUILD_SOURCE}

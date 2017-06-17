@@ -2,7 +2,7 @@ version: '2'
 
 services:
   functions-visualizer:
-    image: functions-visualizer
+    image: lindydonna/functions-visualizer
     build:
       context: ./VisualizerWebApp-NetCore
       dockerfile: Dockerfile
