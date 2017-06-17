@@ -4,7 +4,7 @@ WORKDIR /app
 COPY bin/release/netcoreapp1.1 .
 EXPOSE 80
 
-RUN apt-get update && apt-get install -y graphviz 
+RUN ls && apt-get update && apt-get install -y graphviz 
 
 ENTRYPOINT ["dotnet", "VisualizerWebApp-NetCore.dll"]
 
