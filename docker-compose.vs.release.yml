@@ -1,7 +1,7 @@
 version: '2'
 
 services:
-  visualizerwebapp-netcore:
+  functions-visualizer:
     build:
       args:
         source: ${DOCKER_BUILD_SOURCE}

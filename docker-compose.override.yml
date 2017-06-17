@@ -1,7 +1,7 @@
 version: '2'
 
 services:
-  visualizerwebapp-netcore:
+  functions-visualizer:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:

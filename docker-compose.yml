@@ -1,8 +1,8 @@
 version: '2'
 
 services:
-  visualizerwebapp-netcore:
-    image: visualizerwebapp-netcore
+  functions-visualizer:
+    image: functions-visualizer
     build:
       context: ./VisualizerWebApp-NetCore
       dockerfile: Dockerfile
