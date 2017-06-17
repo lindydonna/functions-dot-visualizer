@@ -1,7 +1,7 @@
 FROM microsoft/aspnetcore:1.1
-ARG source
+ARG output
 WORKDIR /app
-COPY bin/release/netcoreapp1.1 .
+COPY output .
 EXPOSE 80
 
 RUN ls && apt-get update && apt-get install -y graphviz 
