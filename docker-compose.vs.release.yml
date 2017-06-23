@@ -4,7 +4,7 @@ services:
   functions-visualizer:
     build:
       args:
-        output: ${DOCKER_BUILD_OUTPUT}
+        source: ${DOCKER_BUILD_SOURCE}
     entrypoint: tail -f /dev/null
     labels:
       - "com.microsoft.visualstudio.targetoperatingsystem=linux"
