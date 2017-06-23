@@ -55,6 +55,8 @@ Upload a zipfile or use a GitHub repo</h2>
             alert("A .zip file is required");
             return false;
         }
+
+        ga('send', 'event', 'Render', 'Upload Zipfile');
         return true;
     }
 
@@ -63,6 +65,8 @@ Upload a zipfile or use a GitHub repo</h2>
             alert("Invalid repo URL");
             return false;
         }
+
+        ga('send', 'event', 'Render', 'GitHub repo');
         return true;
     }
 </script>

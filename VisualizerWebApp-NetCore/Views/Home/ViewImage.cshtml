@@ -11,3 +11,7 @@
 <br /><br />
 
 <a href="@Url.Action("DownloadSvg", new { file = ViewData["SvgFile"] })">@Html.Raw(ViewData["ImageContent"])</a>
+
+<script>
+    ga('send', 'event', 'Render', 'Render SVG');
+</script>
